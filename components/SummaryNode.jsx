@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Handle, Position } from "@xyflow/react";
+import { useScrapUrl } from "@/provider/ScrapUrlContext";
 
 const SummaryNode = ({ id, data }) => {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { scrapUrl } = useScrapUrl();
 
   const handleFetchSummary = async () => {
+    console.log(scrapUrl);
     setLoading(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));

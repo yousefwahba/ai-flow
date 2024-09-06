@@ -1,8 +1,14 @@
+import { useScrapUrl } from "@/provider/ScrapUrlContext";
 import { Handle } from "@xyflow/react";
 import { Database } from "lucide-react";
 import React from "react";
 
 const ScrapUrlNode = ({ data }) => {
+  const { scrapUrl, setScrapUrl } = useScrapUrl();
+
+  const handleInputChange = (e) => {
+    setScrapUrl(e.target.value);
+  };
   return (
     <div className="bg-gray-200 rounded-lg p-4 w-64 shadow-lg">
       <div className="flex items-center bg-white p-2 rounded-lg mb-4 shadow-sm">
@@ -15,7 +21,8 @@ const ScrapUrlNode = ({ data }) => {
         <input
           type="text"
           placeholder="Enter URL"
-          defaultValue={data.url}
+          value={scrapUrl}
+          onChange={handleInputChange}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-400 transition duration-300"
         />
       </div>
