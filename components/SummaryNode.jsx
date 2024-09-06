@@ -12,7 +12,7 @@ const SummaryNode = ({ id, data }) => {
     // Simulate API call
     try {
       const response = await fetch(
-        "https://scraper-py.vercel.app/scrap?url=https://example.com"
+        `https://scraper-py.vercel.app/scrap?url=${scrapUrl}`
       );
       const result = await response.json();
       const textData = JSON.stringify(result);
