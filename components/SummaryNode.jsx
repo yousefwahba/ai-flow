@@ -1,6 +1,10 @@
+"use client";
 import React, { useState } from "react";
 import { Handle, Position } from "@xyflow/react";
 import { useScrapUrl } from "@/provider/ScrapUrlContext";
+import { generateText } from "ai";
+import { google } from "@ai-sdk/google";
+import { getAnswer } from "@/app/actions/actions";
 
 const SummaryNode = ({ id, data }) => {
   const [summary, setSummary] = useState(null);
@@ -9,7 +13,6 @@ const SummaryNode = ({ id, data }) => {
 
   const handleFetchSummary = async () => {
     setLoading(true);
-    // Simulate API call
     try {
       const response = await fetch(
         `https://scraper-py.vercel.app/scrap?url=${scrapUrl}`
@@ -17,13 +20,29 @@ const SummaryNode = ({ id, data }) => {
       const result = await response.json();
       const textData = JSON.stringify(result);
       console.log(textData);
+
+      //Ai part
+      // const res = await fetch("/api/chat", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: textData,
+      // });
+
+      // const data = await res.json();
+      // console.log(data);
+
+      const { text } = await getAnswer(textData);
+      console.log(text);
+      setSummary(text);
     } catch (error) {
       console.log(error);
     }
     // await new Promise((resolve) => setTimeout(resolve, 1500));
-    setSummary(
-      "This is a simulated summary of the flow data. In a real application, this would be fetched from a backend API."
-    );
+    // setSummary(
+    //   "This is a simulated summary of the flow data. In a real application, this would be fetched from a backend API."
+    // );
     setLoading(false);
     setScrapUrl("");
   };
