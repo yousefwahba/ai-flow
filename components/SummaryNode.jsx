@@ -8,10 +8,19 @@ const SummaryNode = ({ id, data }) => {
   const { scrapUrl, setScrapUrl } = useScrapUrl();
 
   const handleFetchSummary = async () => {
-    console.log(scrapUrl);
     setLoading(true);
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch(
+        "https://scraper-py.vercel.app/scrap?url=https://example.com"
+      );
+      const result = await response.json();
+      const textData = JSON.stringify(result);
+      console.log(textData);
+    } catch (error) {
+      console.log(error);
+    }
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
     setSummary(
       "This is a simulated summary of the flow data. In a real application, this would be fetched from a backend API."
     );

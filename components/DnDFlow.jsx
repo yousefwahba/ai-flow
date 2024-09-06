@@ -50,9 +50,6 @@ const DnDFlow = () => {
       const type = event.dataTransfer.getData("application/reactflow");
       const label = event.dataTransfer.getData("application/reactflowlabel");
       const iconType = event.dataTransfer.getData("application/reactflowicon");
-      console.log("iconType", iconType);
-      console.log("type", type);
-      console.log("label", label);
 
       if (typeof type === "undefined" || !type) {
         return;
