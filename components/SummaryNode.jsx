@@ -5,6 +5,7 @@ import { useScrapUrl } from "@/provider/ScrapUrlContext";
 import { generateText } from "ai";
 import { google } from "@ai-sdk/google";
 import { getAnswer } from "@/app/actions/actions";
+import toast from "react-hot-toast";
 
 const SummaryNode = ({ id, data }) => {
   const [summary, setSummary] = useState(null);
@@ -14,35 +15,29 @@ const SummaryNode = ({ id, data }) => {
   const handleFetchSummary = async () => {
     setLoading(true);
     try {
+      if (!scrapUrl || scrapUrl.trim() === "") {
+        toast.error("Please enter a valid URL");
+        setLoading(false);
+        return;
+      }
       const response = await fetch(
         `https://scraper-py.vercel.app/scrap?url=${scrapUrl}`
       );
       const result = await response.json();
+
+      if (!result || Object.keys(result).length === 0) {
+        throw new Error("No data returned from the scraper API");
+      }
+
       const textData = JSON.stringify(result);
-      console.log(textData);
 
       //Ai part
-      // const res = await fetch("/api/chat", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: textData,
-      // });
-
-      // const data = await res.json();
-      // console.log(data);
-
       const { text } = await getAnswer(textData);
-      console.log(text);
       setSummary(text);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
-    // await new Promise((resolve) => setTimeout(resolve, 1500));
-    // setSummary(
-    //   "This is a simulated summary of the flow data. In a real application, this would be fetched from a backend API."
-    // );
+
     setLoading(false);
     setScrapUrl("");
   };
