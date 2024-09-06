@@ -1,5 +1,5 @@
 import { useDnD } from "@/provider/DnDContext";
-import { Database, FileText } from "lucide-react";
+import { Database, Sparkle } from "lucide-react";
 import Image from "next/image";
 import LogoSrc from "@/assets/logo.svg";
 
@@ -37,7 +37,7 @@ const SideBar = () => {
         }
         draggable
       >
-        <FileText size={20} className="mr-2" />
+        <Sparkle size={20} className="mr-2" />
         <span>Summary Node</span>
       </div>
     </aside>

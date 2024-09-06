@@ -5,7 +5,7 @@ import { useScrapUrl } from "@/provider/ScrapUrlContext";
 const SummaryNode = ({ id, data }) => {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { scrapUrl } = useScrapUrl();
+  const { scrapUrl, setScrapUrl } = useScrapUrl();
 
   const handleFetchSummary = async () => {
     console.log(scrapUrl);
@@ -16,27 +16,36 @@ const SummaryNode = ({ id, data }) => {
       "This is a simulated summary of the flow data. In a real application, this would be fetched from a backend API."
     );
     setLoading(false);
+    setScrapUrl("");
   };
 
   return (
-    <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-stone-400">
-      <div className="flex items-center mb-2">
-        <div className="mr-2">{data.icon}</div>
-        <div className="font-bold text-lg">{data.label}</div>
+    <div className="w-96 h-auto px-5 py-4 shadow-lg rounded-lg bg-white border-2 border-gray-300 hover:border-gray-400 transition-all duration-200 ease-in-out">
+      <div className="flex items-center mb-4 space-x-3">
+        <div className="text-3xl text-blue-500">{data.icon}</div>
+        <h2 className="font-semibold text-xl text-gray-800">{data.label}</h2>
       </div>
       <button
         onClick={handleFetchSummary}
         disabled={loading}
-        className="w-full px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
+        className={`w-full py-2 text-white font-medium rounded-md transition-all duration-200 ${
+          loading
+            ? "bg-blue-300 cursor-not-allowed"
+            : "bg-blue-500 hover:bg-blue-600"
+        }`}
       >
         {loading ? "Fetching..." : "Get Summary"}
       </button>
       {summary && (
-        <div className="mt-2 p-2 bg-gray-100 rounded">
-          <p className="text-sm">{summary}</p>
+        <div className="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner">
+          <p className="text-gray-700 text-sm">{summary}</p>
         </div>
       )}
-      <Handle type="target" position={Position.Left} className="w-2 h-2" />
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="w-3 h-3 bg-blue-500"
+      />
     </div>
   );
 };
