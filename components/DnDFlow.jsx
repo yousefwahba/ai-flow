@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useMemo } from "react";
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -9,6 +9,7 @@ import {
   Controls,
   useReactFlow,
   Background,
+  MiniMap,
 } from "@xyflow/react";
 import SideBar from "@/components/SideBar";
 import { DnDProvider, useDnD } from "@/provider/DnDContext";
@@ -86,10 +87,13 @@ const DnDFlow = () => {
     },
     [screenToFlowPosition, type]
   );
-  const nodeTypes = {
-    ScrapUrlNode: ScrapUrlNode,
-    summary: SummaryNode,
-  };
+  const nodeTypes = useMemo(
+    () => ({
+      ScrapUrlNode: ScrapUrlNode,
+      summary: SummaryNode,
+    }),
+    []
+  );
 
   return (
     <div className="dndflow">
@@ -109,6 +113,7 @@ const DnDFlow = () => {
         >
           <Background color="#aaa" />
           <Controls />
+          <MiniMap />
         </ReactFlow>
       </div>
     </div>
