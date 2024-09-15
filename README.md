@@ -2,7 +2,7 @@
 
 This project scrapes data from a Python server, deploys it, and integrates it into an application via an API. The data is then processed by an AI model, built with the latest version of the Vercel AI SDK, to generate concise summaries. The frontend is designed using React with custom nodes in React Flow, which supports advanced drag-and-drop functionality and leverages React Context to manage state across nodes.
 
-## Demo Video
+## [Demo Video](https://www.youtube.com/watch?v=O5o2NID1lkM)
 
 [![Watch Video](https://imagizer.imageshack.com/img922/2531/u7P3GV.png)](https://www.youtube.com/watch?v=O5o2NID1lkM)
 
@@ -53,7 +53,7 @@ This project scrapes data from a Python server, deploys it, and integrates it in
 1. **Clone the Repository**:
 
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/yousefwahba/ai-flow
    cd project-directory
    ```
 
